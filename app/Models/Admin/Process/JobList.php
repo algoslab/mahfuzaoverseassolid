@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Models\Admin\Process;
+
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Business\Company;
+use App\Models\User;
+
+class JobList extends Model
+{
+    protected $fillable =
+    [
+        'job_category_id',
+        'company_id',
+        'branch_id',
+        'job_type',
+        'name', 
+        'note',
+        'status',
+        'user_id',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+    public function jobCategory()
+    {
+        return $this->belongsTo(JobCategory::class, 'job_category_id');
+    }
+}
