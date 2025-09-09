@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\HRM;
 
+use App\Models\Admin\Enquiry\PhoneCallFollowup;
 use App\Models\Admin\MyOffice\Branch;
 use App\Models\Admin\MyOffice\Department;
 use App\Models\Admin\MyOffice\Designation;
@@ -16,10 +17,10 @@ class Employee extends Model
     protected $fillable =
     [
         'company_id',
-        'branch_id', 
-        'first_name', 
+        'branch_id',
+        'first_name',
         'last_name',
-        'employee_code', 
+        'employee_code',
         'religion',
         'gender',
         'marital_status',
@@ -48,6 +49,9 @@ class Employee extends Model
         'access_card',
         'add_finger',
         'is_active_finger',
+        'is_hold_salary',
+        'is_mobile_bill',
+        'is_accommodation',
         'white_list',
         'weekend_day',
         'status',
@@ -82,5 +86,9 @@ class Employee extends Model
     public function roster()
     {
         return $this->belongsTo(Roster::class, 'roster_id');
+    }
+    public function phone_call_followups()
+    {
+        return $this->hasMany(PhoneCallFollowup::class);
     }
 }
