@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('supper_admin.layouts.app')
 @section('title', config('app.name') . ' - Work Permit')
 
 @section('style')
@@ -135,7 +135,7 @@
 
             function fetchWorkPermits() {
                 $.ajax({
-                    url: '{{ route("admin.workpermits.index") }}',
+                    url: '{{ route("supper_admin.workpermits.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -180,7 +180,7 @@
                 // Fetch Countries based on Continent
                 function fetchCountries(continentId, selectedCountryId) {
                     $.ajax({
-                        url: "{{ route('admin.country.active') }}",
+                        url: "{{ route('supper_admin.country.active') }}",
                         method: "GET",
                         data: { continent_id: continentId }, // Pass continent_id to filter countries
                         success: function (data) {
@@ -219,8 +219,8 @@
                     let formData = new FormData(this); 
                     let id = $('#work_permit_id').val(); 
                     let url = isEdit 
-                        ? `{{ route('admin.workpermits.update', ['workpermit' => '__id__']) }}`.replace('__id__', id) 
-                        : `{{ route('admin.workpermits.store') }}`;
+                        ? `{{ route('supper_admin.workpermits.update', ['workpermit' => '__id__']) }}`.replace('__id__', id) 
+                        : `{{ route('supper_admin.workpermits.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST'; 
                     if (isEdit) {
@@ -273,7 +273,7 @@
                 const storageBaseUrl = "{{ asset('storage') }}/";
                 $(document).on('click', '.editBlogButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("admin.workpermits.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("supper_admin.workpermits.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -310,7 +310,7 @@
 
                 $(document).on('click', '.deleteWorkPermitBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("admin.workpermits.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("supper_admin.workpermits.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete country?',

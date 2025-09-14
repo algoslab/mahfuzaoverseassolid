@@ -48,9 +48,9 @@
 					  </span>
 					</a>
 					<ul class="treeview-menu">		
-						<li><a href="{{ route('admin.air-ticket.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Air Ticket</a></li>
-						<li><a href="{{ route('admin.hazz-umrah.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Hazz & Umrah</a></li>
-						<li><a href="{{ route('admin.workpermits.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Work Permit Visa</a></li>
+						<li><a href="{{ route('supper_admin.air-ticket.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Air Ticket</a></li>
+						<li><a href="{{ route('supper_admin.hazz-umrah.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Hazz & Umrah</a></li>
+						<li><a href="{{ route('supper_admin.workpermits.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Work Permit Visa</a></li>
 					</ul>
 				</li>
 				

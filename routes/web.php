@@ -131,9 +131,14 @@ Route::middleware(['auth', 'verified'])->prefix('supper_admin')->name('supper_ad
     Route::post('sponsor/make-transaction', [SponsorController::class, 'makeTransaction'])->name('sponsor.make-transaction');
     
     
-   
+    Route::resource('air-ticket', AirTicketcontroller::class);
+    Route::resource('hazz-umrah', HazzUmrahcontroller::class);
+    Route::resource('workpermits', WorkPermitcontroller::class);
+    Route::post('air-ticket-csv', [AirTicketcontroller::class, 'importCSV'])->name('air-ticket.import');
+    Route::get('air-ticket-csv-download', [AirTicketcontroller::class, 'downloadTemplate'])->name('air-ticket.download-template');
     
-    
+    Route::get('/countries/active', [CountryController::class, 'Activeindex'])->name('country.active');
+    Route::get('/currency/active', [CurrencyController::class, 'Activeindex'])->name('currency.active');
 
     
 
@@ -192,14 +197,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('visas', VisaController::class);
     Route::resource('marketing-visas', MarketingVisaController::class);
     Route::get('/sponsor/enabled', [SponsorController::class, 'enabledIndex'])->name('sponsor.enabled');
-    Route::get('/countries/active', [CountryController::class, 'Activeindex'])->name('country.active');
-    Route::get('/currency/active', [CurrencyController::class, 'Activeindex'])->name('currency.active');
+    
 
-     Route::resource('air-ticket', AirTicketcontroller::class);
-    Route::resource('hazz-umrah', HazzUmrahcontroller::class);
-    Route::resource('workpermits', WorkPermitcontroller::class);
-    Route::post('air-ticket-csv', [AirTicketcontroller::class, 'importCSV'])->name('air-ticket.import');
-      Route::get('air-ticket-csv-download', [AirTicketcontroller::class, 'downloadTemplate'])->name('air-ticket.download-template');
+   
       Route::get('/expense-categories/enabled', [ExpenseCategoryController::class, 'enabledIndex'])->name('expense-category.enabled');
     Route::get('/expense-items/enabled', [ExpenseItemController::class, 'enabledIndex'])->name('expense-item.enabled');
     Route::resource('expense-categories', ExpenseCategoryController::class);

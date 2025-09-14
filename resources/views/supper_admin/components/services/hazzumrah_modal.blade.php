@@ -8,7 +8,7 @@
                 </button>
             </div>
             <!-- The Form -->
-            <form id="hazzUmrahForm" action="{{ route('admin.hazz-umrah.store') }}" method="POST">
+            <form id="hazzUmrahForm" action="{{ route('supper_admin.hazz-umrah.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="row">

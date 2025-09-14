@@ -143,7 +143,7 @@
                 fetchcountriess();
                 function fetchcountriess() {
                     $.ajax({
-                        url: "{{ route('admin.country.active') }}",
+                        url: "{{ route('supper_') }}",
                         method: "GET",
                         success: function(data) {
                             let select = $('#countriesSelect');
