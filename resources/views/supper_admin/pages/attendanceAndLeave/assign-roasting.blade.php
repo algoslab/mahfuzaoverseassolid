@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Assign Roasting')
 
 @section('style')
@@ -112,7 +112,7 @@
         <script>
             function fetchAssignRoasting(departmentId = null) {
                 $.ajax({
-                    url: '{{ route("supper_admin.roastings.index") }}',
+                    url: '{{ route("admin.roastings.index") }}',
                     type: 'GET',
                     data: {department_id: departmentId}, // Pass department_id to filter employees
                     success: function (data) {
@@ -138,7 +138,7 @@
                 const selectedRosterId = selectElement.value;
 
                 $.ajax({
-                    url: `/supper_admin/roastings/${employeeId}`, // adjust route
+                    url: `/admin/roastings/${employeeId}`, // adjust route
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',

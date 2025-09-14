@@ -90,17 +90,16 @@ Route::middleware(['auth', 'verified'])->prefix('supper_admin')->name('supper_ad
         return view('supper_admin.pages.home.dashboard');
     })->name('dashboard');
 
-    Route::post('air-ticket-csv', [AirTicketcontroller::class, 'importCSV'])->name('air-ticket.import');
-    Route::get('air-ticket-csv-download', [AirTicketcontroller::class, 'downloadTemplate'])->name('air-ticket.download-template');
+    
+  
     Route::get('/continents/active', [ContinentController::class, 'Activeindex'])->name('continent.active');
-    Route::get('/countries/active', [CountryController::class, 'Activeindex'])->name('country.active');
+    
     Route::get('/divisions/active', [DivisionController::class, 'Activeindex'])->name('division.active');
     Route::get('/district/active', [DistrictController::class, 'Activeindex'])->name('district.active');
     Route::get('/thana/active', [ThanaController::class, 'Activeindex'])->name('thana.active');
     Route::get('/company/active', [CompaniesController::class, 'Activeindex'])->name('company.active');
-    Route::get('/currency/active', [CurrencyController::class, 'Activeindex'])->name('currency.active');
-    Route::get('/expense-categories/enabled', [ExpenseCategoryController::class, 'enabledIndex'])->name('expense-category.enabled');
-    Route::get('/expense-items/enabled', [ExpenseItemController::class, 'enabledIndex'])->name('expense-item.enabled');
+    
+    
     Route::get('/unpaid/employees', [SalaryGenerateController::class, 'unpaidSalaryEmployees'])->name('unpaid.employees');
 
     
@@ -109,14 +108,11 @@ Route::middleware(['auth', 'verified'])->prefix('supper_admin')->name('supper_ad
     Route::get('/check-router', [MikrotikServiceController::class, 'checkRouterStatus'])->name('mikrotik.check');
     Route::post('mikrotik/hotspot-user', [MikrotikServiceController::class, 'createHotspotUser'])->name('mikrotik.user');
 
-    Route::get('/sponsor/enabled', [SponsorController::class, 'enabledIndex'])->name('sponsor.enabled');
+    
     //Resource routes for sponsor under super_admin
-    Route::resource('sponsors', SponsorController::class);
-    Route::resource('visas', VisaController::class);
+  
     // Resource routes for services under supper_admin
-    Route::resource('air-ticket', AirTicketcontroller::class);
-    Route::resource('hazz-umrah', HazzUmrahcontroller::class);
-    Route::resource('workpermits', WorkPermitcontroller::class);
+   
     Route::resource('companies', CompaniesController::class)->only(['create', 'edit', 'show', 'update', 'destroy']);
     Route::resource('continents', ContinentController::class);
     Route::resource('countries', CountryController::class);
@@ -128,34 +124,13 @@ Route::middleware(['auth', 'verified'])->prefix('supper_admin')->name('supper_ad
     Route::resource('currencies', CurrencyController::class);
     Route::resource('mikrotik-devices', MikrotikDeviceController::class);
     
-    //Resource routes for payroll under super_admin
-    Route::resource('expense-categories', ExpenseCategoryController::class);
-    Route::resource('expense-items', ExpenseItemController::class);
-    Route::resource('expenses', ExpenseController::class);
-    Route::post('/employee/salary-distribution', [SalaryGenerateController::class, 'salaryDistribution'])->name('employee.salary-distribution');
-    Route::resource('salary-generate', SalaryGenerateController::class);
-    Route::resource('performance-bonuses', PerformanceBonusController::class);
-    Route::resource('inc-and-deces', IncAndDecController::class);
-    Route::resource('advance-salaries', AdvanceSalaryController::class);
-    Route::resource('traveling-and-darenesses', TravellingAndDearnessController::class);
-    Route::get('/hold-or-allowances', [HoldOrAllowanceController::class, 'index'])->name('hold-or-allowances.index');
-    Route::post('/hold-or-allowances/{employeeId}', [HoldOrAllowanceController::class, 'update'])->name('hold-or-allowances.update');
-    Route::resource('mobile-allowances', MobileAllowanceController::class);
-    Route::resource('festival-bonuses', FestivalBonusController::class);
+    
 
-    //Resource routes for attendance and leave under super_admin
-    Route::resource('attendances', AttendanceController::class);
-    Route::delete('/leave-date/withdraw/{id}', [LeaveController::class, 'withdraw'])->name('leave-date.withdraw');
-    Route::resource('leaves', LeaveController::class);
-    Route::get('/roastings', [RoastingController::class, 'index'])->name('roastings.index');
-    Route::post('/roastings/{employeeId}', [RoastingController::class, 'update'])->name('roastings.update');
-    Route::get('/weekends', [WeekendController::class, 'index'])->name('weekends.index');
-    Route::post('/weekends/{employeeId}', [WeekendController::class, 'update'])->name('weekends.update');
+   
      //Resource routes for sponsor under super_admin
     Route::post('sponsor/make-transaction', [SponsorController::class, 'makeTransaction'])->name('sponsor.make-transaction');
-    Route::resource('sponsors', SponsorController::class);
-    Route::resource('visas', VisaController::class);
-    Route::resource('marketing-visas', MarketingVisaController::class);
+    
+    
    
     
     
@@ -213,6 +188,45 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('enquiry/phone-calls', PhoneCallController::class);
     Route::resource('enquiry/visitor-books', VisitorBookController::class);
     Route::resource('enquiry/interviewed-candidates', InterviewedCandidateController::class);
+    Route::resource('sponsors', SponsorController::class);
+    Route::resource('visas', VisaController::class);
+    Route::resource('marketing-visas', MarketingVisaController::class);
+    Route::get('/sponsor/enabled', [SponsorController::class, 'enabledIndex'])->name('sponsor.enabled');
+    Route::get('/countries/active', [CountryController::class, 'Activeindex'])->name('country.active');
+    Route::get('/currency/active', [CurrencyController::class, 'Activeindex'])->name('currency.active');
+
+     Route::resource('air-ticket', AirTicketcontroller::class);
+    Route::resource('hazz-umrah', HazzUmrahcontroller::class);
+    Route::resource('workpermits', WorkPermitcontroller::class);
+    Route::post('air-ticket-csv', [AirTicketcontroller::class, 'importCSV'])->name('air-ticket.import');
+      Route::get('air-ticket-csv-download', [AirTicketcontroller::class, 'downloadTemplate'])->name('air-ticket.download-template');
+      Route::get('/expense-categories/enabled', [ExpenseCategoryController::class, 'enabledIndex'])->name('expense-category.enabled');
+    Route::get('/expense-items/enabled', [ExpenseItemController::class, 'enabledIndex'])->name('expense-item.enabled');
+    Route::resource('expense-categories', ExpenseCategoryController::class);
+     Route::resource('expense-items', ExpenseItemController::class);
+    Route::resource('expenses', ExpenseController::class);
+    //Resource routes for payroll under super_admin
+    
+   
+    Route::post('/employee/salary-distribution', [SalaryGenerateController::class, 'salaryDistribution'])->name('employee.salary-distribution');
+    Route::resource('salary-generate', SalaryGenerateController::class);
+    Route::resource('performance-bonuses', PerformanceBonusController::class);
+    Route::resource('inc-and-deces', IncAndDecController::class);
+    Route::resource('advance-salaries', AdvanceSalaryController::class);
+    Route::resource('traveling-and-darenesses', TravellingAndDearnessController::class);
+    Route::get('/hold-or-allowances', [HoldOrAllowanceController::class, 'index'])->name('hold-or-allowances.index');
+    Route::post('/hold-or-allowances/{employeeId}', [HoldOrAllowanceController::class, 'update'])->name('hold-or-allowances.update');
+    Route::resource('mobile-allowances', MobileAllowanceController::class);
+    Route::resource('festival-bonuses', FestivalBonusController::class);
+
+     //Resource routes for attendance and leave under super_admin
+    Route::resource('attendances', AttendanceController::class);
+    Route::delete('/leave-date/withdraw/{id}', [LeaveController::class, 'withdraw'])->name('leave-date.withdraw');
+    Route::resource('leaves', LeaveController::class);
+    Route::get('/roastings', [RoastingController::class, 'index'])->name('roastings.index');
+    Route::post('/roastings/{employeeId}', [RoastingController::class, 'update'])->name('roastings.update');
+    Route::get('/weekends', [WeekendController::class, 'index'])->name('weekends.index');
+    Route::post('/weekends/{employeeId}', [WeekendController::class, 'update'])->name('weekends.update');
 
 });
 

@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Expense')
 
 @section('style')
@@ -127,7 +127,7 @@
 
             function fetchExpenses() {
                 $.ajax({
-                    url: '{{ route("supper_admin.expenses.index") }}',
+                    url: '{{ route("admin.expenses.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('#customDataTable tbody').html();
@@ -154,7 +154,7 @@
 
                 function fetchCategories() {
                     $.ajax({
-                        url: "{{ route('supper_admin.expense-category.enabled') }}",
+                        url: "{{ route('admin.expense-category.enabled') }}",
                         method: "GET",
                         success: function (data) {
                             let select = $('#categorySelect');
@@ -178,7 +178,7 @@
                 // Fetch Countries based on Continent
                 function fetchItems(categoryId, selectedItemId) {
                     $.ajax({
-                        url: "{{ route('supper_admin.expense-item.enabled') }}",
+                        url: "{{ route('admin.expense-item.enabled') }}",
                         method: "GET",
                         data: {expense_category_id: categoryId}, // Pass expense_category_id to filter items
                         success: function (data) {
@@ -435,11 +435,11 @@
                     let isEdit = $('#expense_id').val() !== '';
                     let formData = new FormData(this);
                     let id = $('#expense_id').val();
-                    const baseUpdateUrl = "{{ url('supper_admin/expenses') }}";
+                    const baseUpdateUrl = "{{ url('admin/expenses') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.expenses.store') }}`;
+                        : `{{ route('admin.expenses.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -492,7 +492,7 @@
 
             $(document).on('click', '.viewSalaryListButton', function () {
                 const id = $(this).data('id');
-                const url = '{{ route("supper_admin.expenses.edit", ":id") }}'.replace(':id', id);
+                const url = '{{ route("admin.expenses.edit", ":id") }}'.replace(':id', id);
                 $.ajax({
                     url: url,
                     type: 'GET',
@@ -521,7 +521,7 @@
 
                 $(document).on('click', '.deleteWorkPermitBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.expenses.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.expenses.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete expense?',

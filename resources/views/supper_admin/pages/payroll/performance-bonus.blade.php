@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Performance Bonus')
 
 @section('style')
@@ -116,7 +116,7 @@
 
             function fetchPerformanceBonuses() {
                 $.ajax({
-                    url: '{{ route("supper_admin.performance-bonuses.index") }}',
+                    url: '{{ route("admin.performance-bonuses.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -209,7 +209,7 @@
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.performance-bonuses.store') }}`;
+                        : `{{ route('admin.performance-bonuses.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -261,7 +261,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.performance-bonuses.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.performance-bonuses.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Performance Bonus?',

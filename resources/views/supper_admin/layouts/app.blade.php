@@ -21,7 +21,7 @@
 
 	<script>
         window.routes = {
-            countryActive: "{{ route('supper_admin.country.active') }}",
+            countryActive: "{{ route('admin.country.active') }}",
 			divisionActive: "{{ route('supper_admin.division.active') }}",
 			districtActive: "{{ route('supper_admin.district.active') }}",
 			thanaActive: "{{ route('supper_admin.thana.active') }}",

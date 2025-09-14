@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Leave')
 
 @section('style')
@@ -125,7 +125,7 @@
 
             function fetchLeaves() {
                 $.ajax({
-                    url: '{{ route("supper_admin.leaves.index") }}',
+                    url: '{{ route("admin.leaves.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('#customDataTable tbody').html();
@@ -255,11 +255,11 @@
                     let isEdit = $('#leave_id').val() !== '';
                     let formData = new FormData(this);
                     let id = $('#leave_id').val();
-                    const baseUpdateUrl = "{{ url('supper_admin/leaves') }}";
+                    const baseUpdateUrl = "{{ url('admin/leaves') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.leaves.store') }}`;
+                        : `{{ route('admin.leaves.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -312,7 +312,7 @@
 
                 $(document).on('click', '.editBlogButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.leaves.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.leaves.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -357,7 +357,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.leaves.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.leaves.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Leave?',
@@ -392,7 +392,7 @@
 
                 $(document).on('click', '.deleteDateBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.leave-date.withdraw", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.leave-date.withdraw", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Yes, withdraw it!',

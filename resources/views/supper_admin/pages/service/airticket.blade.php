@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Company')
 
 @section('style')
@@ -78,7 +78,7 @@
                                     <a href="#" class="dropdown-item editBlogButton" data-toggle="modal" data-target="#modal-center" data-id="{{ $service->id }}">
                                         <i class="fa fa-edit"></i> Edit
                                     </a>
-                                    <form action="{{ route('supper_admin.air-ticket.destroy', $service->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this?')">
+                                    <form action="{{ route('admin.air-ticket.destroy', $service->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="dropdown-item text-danger">

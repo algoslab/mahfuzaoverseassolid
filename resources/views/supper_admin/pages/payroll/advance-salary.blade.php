@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Advance Salary')
 
 @section('style')
@@ -112,7 +112,7 @@
 
             function fetchAdvanceSalaries() {
                 $.ajax({
-                    url: '{{ route("supper_admin.advance-salaries.index") }}',
+                    url: '{{ route("admin.advance-salaries.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -411,11 +411,11 @@
                     let isEdit = $('#performance_bonus_id').val() !== '';
                     let formData = new FormData(this);
                     let id = $('#performance_bonus_id').val();
-                    const baseUpdateUrl = "{{ url('supper_admin/advance-salaries') }}";
+                    const baseUpdateUrl = "{{ url('admin/advance-salaries') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.advance-salaries.store') }}`;
+                        : `{{ route('admin.advance-salaries.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -466,7 +466,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.advance-salaries.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.advance-salaries.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Advance Salary?',

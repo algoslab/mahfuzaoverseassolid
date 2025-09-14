@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Salary Generate')
 
 @section('style')
@@ -128,7 +128,7 @@
 
             function fetchSalaryGenerates() {
                 $.ajax({
-                    url: '{{ route("supper_admin.salary-generate.index") }}',
+                    url: '{{ route("admin.salary-generate.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('#customDataTable tbody').html();
@@ -377,7 +377,7 @@
                 $('#salaryGenerateForm').on('submit', function (e) {
                     e.preventDefault();
                     let formData = new FormData(this);
-                    let url = `{{ route('supper_admin.salary-generate.store') }}`;
+                    let url = `{{ route('admin.salary-generate.store') }}`;
 
                     let method = 'POST';
 
@@ -415,7 +415,7 @@
                 $('#distributionForm').on('submit', function (e) {
                     e.preventDefault();
                     let formData = new FormData(this);
-                    let url = `{{ route('supper_admin.employee.salary-distribution') }}`;
+                    let url = `{{ route('admin.employee.salary-distribution') }}`;
 
                     let method = 'POST';
 
@@ -461,7 +461,7 @@
 
                 $(document).on('click', '.viewSalaryListButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.salary-generate.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.salary-generate.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -537,7 +537,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.salary-generate.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.salary-generate.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Are You Sure?',

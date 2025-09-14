@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Festival Bonus')
 
 @section('style')
@@ -115,7 +115,7 @@
 
             function fetchFestivalBonuses() {
                 $.ajax({
-                    url: '{{ route("supper_admin.festival-bonuses.index") }}',
+                    url: '{{ route("admin.festival-bonuses.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -143,10 +143,10 @@
                     let isEdit = $('#festival_bonus_id').val() !== '';
                     let formData = new FormData(this);
                     let id = $('#festival_bonus_id').val();
-                    const baseUpdateUrl = "{{ url('supper_admin/festival-bonuses') }}";
+                    const baseUpdateUrl = "{{ url('admin/festival-bonuses') }}";
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.festival-bonuses.store') }}`;
+                        : `{{ route('admin.festival-bonuses.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -195,7 +195,7 @@
 
                 $(document).on('click', '.editBlogButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.festival-bonuses.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.festival-bonuses.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -220,7 +220,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.festival-bonuses.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.festival-bonuses.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Festival Bonus?',

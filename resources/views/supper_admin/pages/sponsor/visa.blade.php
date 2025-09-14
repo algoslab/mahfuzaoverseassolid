@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Manage Visa')
 
 @section('style')
@@ -144,7 +144,7 @@
         <script>
             function fetchVisas() {
                 $.ajax({
-                    url: '{{ route("supper_admin.visas.index") }}',
+                    url: '{{ route("admin.visas.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -171,7 +171,7 @@
 
                 function fetchSponsors() {
                     $.ajax({
-                        url: "{{ route('supper_admin.sponsor.enabled') }}",
+                        url: "{{ route('admin.sponsor.enabled') }}",
                         method: "GET",
                         success: function (data) {
                             let select = $('#sponsorSelect');
@@ -220,7 +220,7 @@
                 fetchcountriess();
                 function fetchcountriess() {
                     $.ajax({
-                        url: "{{ route('supper_admin.country.active') }}",
+                        url: "{{ route('admin.country.active') }}",
                         method: "GET",
                         success: function(data) {
                             let select = $('#countrySelect');
@@ -240,7 +240,7 @@
 
                 function fetchCurrencies() {
                     $.ajax({
-                        url: "{{ route('supper_admin.currency.active') }}",
+                        url: "{{ route('admin.currency.active') }}",
                         method: "GET",
                         success: function (data) {
                             let select = $('#currencySelect');
@@ -325,10 +325,10 @@
                     formData.set('provide_food', $('#provide_food').is(':checked') ? '1' : '0');
                     formData.set('provide_accommodation', $('#provide_accommodation').is(':checked') ? '1' : '0');
                     formData.set('status', $('#status').is(':checked') ? 'Enabled' : 'Disabled');
-                    const baseUpdateUrl = "{{ url('supper_admin/visas') }}";
+                    const baseUpdateUrl = "{{ url('admin/visas') }}";
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.visas.store') }}`;
+                        : `{{ route('admin.visas.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -378,7 +378,7 @@
 
                 $(document).on('click', '.editBlogButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.visas.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.visas.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -462,7 +462,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.visas.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.visas.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Visa?',

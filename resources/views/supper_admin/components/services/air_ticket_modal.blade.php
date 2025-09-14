@@ -14,7 +14,7 @@
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="{{ route('supper_admin.air-ticket.import') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.air-ticket.import') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <!-- File Input -->
@@ -26,7 +26,7 @@
 
                     <!-- CSV Download Button -->
                     <div class="mb-3">
-                        <a href="{{ route('supper_admin.air-ticket.download-template') }}" class="btn btn-info btn-sm">
+                        <a href="{{ route('admin.air-ticket.download-template') }}" class="btn btn-info btn-sm">
                             <i class="fa fa-download"></i> Download Sample CSV
                         </a>
                     </div>

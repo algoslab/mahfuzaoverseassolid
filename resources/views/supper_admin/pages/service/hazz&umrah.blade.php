@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Company')
 
 @section('style')
@@ -85,7 +85,7 @@
                                     </a>
                                     
                                     <!-- Delete Form inside Dropdown -->
-                                    <form action="{{ route('supper_admin.hazz-umrah.destroy', $serivice->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?')">
+                                    <form action="{{ route('admin.hazz-umrah.destroy', $serivice->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="dropdown-item text-danger">
@@ -124,7 +124,7 @@
         // Edit Country Button
         $('.editblogCategoryButton').on('click', function () {
             const hazzUmrahId = $(this).data('id');
-            const editUrl = '{{ route("supper_admin.hazz-umrah.edit", ":id") }}'.replace(':id', hazzUmrahId);
+            const editUrl = '{{ route("admin.hazz-umrah.edit", ":id") }}'.replace(':id', hazzUmrahId);
             $.ajax({
                 url: editUrl,
                 type: 'GET',

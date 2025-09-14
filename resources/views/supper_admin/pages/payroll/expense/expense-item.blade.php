@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Expense Item')
 
 @section('style')
@@ -118,7 +118,7 @@
         <script>
             function fetchExpenseItems() {
                 $.ajax({
-                    url: '{{ route("supper_admin.expense-items.index") }}',
+                    url: '{{ route("admin.expense-items.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -144,7 +144,7 @@
 
                 function fetchExpenseCategories() {
                     $.ajax({
-                        url: "{{ route('supper_admin.expense-category.enabled') }}",
+                        url: "{{ route('admin.expense-category.enabled') }}",
                         method: "GET",
                         success: function (data) {
                             let select = $('#categorySelect');
@@ -172,11 +172,11 @@
                     let formData = new FormData(this);
                     let id = $('#expense_item_id').val();
                     formData.set('status', $('#status').is(':checked') ? 'Enabled' : 'Disabled');
-                    const baseUpdateUrl = "{{ url('supper_admin/expense-items') }}";
+                    const baseUpdateUrl = "{{ url('admin/expense-items') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.expense-items.store') }}`;
+                        : `{{ route('admin.expense-items.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -224,7 +224,7 @@
 
                 $(document).on('click', '.editBlogButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.expense-items.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.expense-items.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -247,7 +247,7 @@
 
                 $(document).on('click', '.deletecountryBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.expense-items.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.expense-items.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete country?',

@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Expense Category')
 
 @section('style')
@@ -126,7 +126,7 @@
         <script>
             function fetchExpenseCategories() {
                 $.ajax({
-                    url: '{{ route("supper_admin.expense-categories.index") }}',
+                    url: '{{ route("admin.expense-categories.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -159,11 +159,11 @@
                     let id = $('#expense_category_id').val();
                     formData.set('status', $('#status').is(':checked') ? 'Enabled' : 'Disabled');
 
-                    const baseUpdateUrl = "{{ url('supper_admin/expense-categories') }}";
+                    const baseUpdateUrl = "{{ url('admin/expense-categories') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.expense-categories.store') }}`;
+                        : `{{ route('admin.expense-categories.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -211,7 +211,7 @@
 
                 $(document).on('click', '.editBlogButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.expense-categories.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.expense-categories.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -259,7 +259,7 @@
 
                 $(document).on('click', '.deleteContinentBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.expense-categories.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.expense-categories.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Expense Category?',

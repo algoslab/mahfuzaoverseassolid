@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Setup Weekend')
 
 @section('style')
@@ -127,7 +127,7 @@
         <script>
             function fetchSetupWeekend(departmentId = null) {
                 $.ajax({
-                    url: '{{ route("supper_admin.weekends.index") }}',
+                    url: '{{ route("admin.weekends.index") }}',
                     type: 'GET',
                     data: {department_id: departmentId}, // Pass department_id to filter employees
                     success: function (data) {
@@ -158,7 +158,7 @@
                 const selectedWeekendId = selectElement.value;
 
                 $.ajax({
-                    url: `/supper_admin/weekends/${employeeId}`, // adjust route
+                    url: `/admin/weekends/${employeeId}`, // adjust route
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',

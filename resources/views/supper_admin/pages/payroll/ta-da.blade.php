@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Travelling & Dearness')
 
 @section('style')
@@ -122,7 +122,7 @@
 
             function fetchTravelingAndDarenesses() {
                 $.ajax({
-                    url: '{{ route("supper_admin.traveling-and-darenesses.index") }}',
+                    url: '{{ route("admin.traveling-and-darenesses.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -421,11 +421,11 @@
                     let isEdit = $('#performance_bonus_id').val() !== '';
                     let formData = new FormData(this);
                     let id = $('#performance_bonus_id').val();
-                    const baseUpdateUrl = "{{ url('supper_admin/traveling-and-darenesses') }}";
+                    const baseUpdateUrl = "{{ url('admin/traveling-and-darenesses') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.traveling-and-darenesses.store') }}`;
+                        : `{{ route('admin.traveling-and-darenesses.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -476,7 +476,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.traveling-and-darenesses.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.traveling-and-darenesses.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Travelling & Dearness?',

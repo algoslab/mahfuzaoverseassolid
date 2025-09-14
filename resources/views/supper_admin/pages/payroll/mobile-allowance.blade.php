@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Mobile Allowance')
 
 @section('style')
@@ -116,7 +116,7 @@
 
             function fetchMobileAllowances() {
                 $.ajax({
-                    url: '{{ route("supper_admin.mobile-allowances.index") }}',
+                    url: '{{ route("admin.mobile-allowances.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -205,11 +205,11 @@
                     let isEdit = $('#mobile_allowance_id').val() !== '';
                     let formData = new FormData(this);
                     let id = $('#mobile_allowance_id').val();
-                    const baseUpdateUrl = "{{ url('supper_admin/mobile-allowances') }}";
+                    const baseUpdateUrl = "{{ url('admin/mobile-allowances') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.mobile-allowances.store') }}`;
+                        : `{{ route('admin.mobile-allowances.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -261,7 +261,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.mobile-allowances.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.mobile-allowances.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Mobile Allowance?',

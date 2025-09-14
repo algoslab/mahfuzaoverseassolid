@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Inc & Dec')
 
 @section('style')
@@ -116,7 +116,7 @@
 
             function fetchIncAnddecs() {
                 $.ajax({
-                    url: '{{ route("supper_admin.inc-and-deces.index") }}',
+                    url: '{{ route("admin.inc-and-deces.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -205,11 +205,11 @@
                     let isEdit = $('#inc_and_dec_id').val() !== '';
                     let formData = new FormData(this);
                     let id = $('#inc_and_dec_id').val();
-                    const baseUpdateUrl = "{{ url('supper_admin/inc-and-deces') }}";
+                    const baseUpdateUrl = "{{ url('admin/inc-and-deces') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.inc-and-deces.store') }}`;
+                        : `{{ route('admin.inc-and-deces.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -261,7 +261,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.inc-and-deces.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.inc-and-deces.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete inc and dec?',

@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Attendance')
 
 @section('style')
@@ -119,7 +119,7 @@
 
             function fetchAttendances() {
                 $.ajax({
-                    url: '{{ route("supper_admin.attendances.index") }}',
+                    url: '{{ route("admin.attendances.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('table tbody').html();
@@ -208,11 +208,11 @@
                     let isEdit = $('#attendance_id').val() !== '';
                     let formData = new FormData(this);
                     let id = $('#attendance_id').val();
-                    const baseUpdateUrl = "{{ url('supper_admin/attendances') }}";
+                    const baseUpdateUrl = "{{ url('admin/attendances') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.attendances.store') }}`;
+                        : `{{ route('admin.attendances.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -264,7 +264,7 @@
 
                 $(document).on('click', '.editBlogButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.attendances.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.attendances.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -290,7 +290,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.attendances.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.attendances.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Attendance?',

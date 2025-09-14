@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Manage Sponsor')
 
 @section('style')
@@ -158,7 +158,7 @@
 
             function fetchSponsors() {
                 $.ajax({
-                    url: '{{ route("supper_admin.sponsors.index") }}',
+                    url: '{{ route("admin.sponsors.index") }}',
                     type: 'GET',
                     success: function (data) {
                         let newBody = $(data).find('#customDataTable tbody').html();
@@ -534,11 +534,11 @@
                     let formData = new FormData(this);
                     let id = $('#sponsor_id').val();
                     formData.set('status', $('#status').is(':checked') ? 'Enabled' : 'Disabled');
-                    const baseUpdateUrl = "{{ url('supper_admin/sponsors') }}";
+                    const baseUpdateUrl = "{{ url('admin/sponsors') }}";
 
                     let url = isEdit
                         ? `${baseUpdateUrl}/${id}`
-                        : `{{ route('supper_admin.sponsors.store') }}`;
+                        : `{{ route('admin.sponsors.store') }}`;
 
                     let method = isEdit ? 'POST' : 'POST';
                     if (isEdit) {
@@ -633,7 +633,7 @@
 
                 $(document).on('click', '.transactionButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.sponsors.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.sponsors.edit", ":id") }}'.replace(':id', id);
                     $.ajax({
                         url: url,
                         type: 'GET',
@@ -667,7 +667,7 @@
 
                 $(document).on('click', '.editBlogButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.sponsors.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.sponsors.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -707,7 +707,7 @@
 
                 $(document).on('click', '.viewProfileButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.sponsors.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.sponsors.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -746,7 +746,7 @@
 
                 $(document).on('click', '.viewTransactionButton', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.sponsors.edit", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.sponsors.edit", ":id") }}'.replace(':id', id);
 
                     $.ajax({
                         url: url,
@@ -804,7 +804,7 @@
 
                 $(document).on('click', '.deleteBonusBtn', function () {
                     const id = $(this).data('id');
-                    const url = '{{ route("supper_admin.sponsors.destroy", ":id") }}'.replace(':id', id);
+                    const url = '{{ route("admin.sponsors.destroy", ":id") }}'.replace(':id', id);
 
                     Swal.fire({
                         title: 'Delete Sponsor?',

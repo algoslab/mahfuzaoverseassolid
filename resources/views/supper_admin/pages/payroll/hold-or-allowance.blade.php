@@ -1,4 +1,4 @@
-@extends('supper_admin.layouts.app')
+@extends('backend.layouts.app')
 @section('title', config('app.name') . ' - Hold/Allowance')
 
 @section('style')
@@ -143,7 +143,7 @@
         <script>
             function fetchHoldOrAllowance(departmentId = null) {
                 $.ajax({
-                    url: '{{ route("supper_admin.hold-or-allowances.index") }}',
+                    url: '{{ route("admin.hold-or-allowances.index") }}',
                     type: 'GET',
                     data: {department_id: departmentId}, // Pass department_id to filter employees
                     success: function (data) {
@@ -172,7 +172,7 @@
                 const white_list = $(`#white_list_${employeeId}`).is(':checked') ? '1' : '0';
 
                 $.ajax({
-                    url: `/supper_admin/hold-or-allowances/${employeeId}`,
+                    url: `/admin/hold-or-allowances/${employeeId}`,
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
