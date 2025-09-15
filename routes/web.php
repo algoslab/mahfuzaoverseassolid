@@ -57,8 +57,11 @@ use App\Http\Controllers\Supper_Admin\Payroll\FestivalBonusController;
 use App\Http\Controllers\Admin\Enquiry\PhoneCallController;
 use App\Http\Controllers\Admin\Enquiry\VisitorBookController;
 use App\Http\Controllers\Admin\Enquiry\InterviewedCandidateController;
+use App\Http\Controllers\Admin\Process\CandidateController;
+use App\Http\Controllers\Admin\People\InvestorController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -177,6 +180,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('rosters', RosterController::class);
     Route::resource('holidays', HolidayController::class);
     Route::resource('employees', EmployeeController::class);
+    Route::post('employees/inactive/{employee}', [EmployeeController::class, 'inactiveemployee'])->name('employees.inactive');
     Route::resource('agents', AgentController::class);
     Route::resource('hotspots', HotspotController::class);
     Route::resource('mac-address', MacController::class);
@@ -198,7 +202,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('marketing-visas', MarketingVisaController::class);
     Route::get('/sponsor/enabled', [SponsorController::class, 'enabledIndex'])->name('sponsor.enabled');
     
-
+     Route::resource('candidates', CandidateController::class);
+     Route::resource('investors', InvestorController::class);
    
       Route::get('/expense-categories/enabled', [ExpenseCategoryController::class, 'enabledIndex'])->name('expense-category.enabled');
     Route::get('/expense-items/enabled', [ExpenseItemController::class, 'enabledIndex'])->name('expense-item.enabled');
@@ -227,6 +232,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('/roastings/{employeeId}', [RoastingController::class, 'update'])->name('roastings.update');
     Route::get('/weekends', [WeekendController::class, 'index'])->name('weekends.index');
     Route::post('/weekends/{employeeId}', [WeekendController::class, 'update'])->name('weekends.update');
+     Route::get('/countries/active', [CountryController::class, 'Activeindex'])->name('country.active');
+    Route::get('/currency/active', [CurrencyController::class, 'Activeindex'])->name('currency.active');
 
 });
 

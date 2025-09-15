@@ -30,6 +30,16 @@
 							<div class="content-top-agile p-20 pb-0">
 								<h2 class="text-primary">Overseas ERP Solution</h2>
 								<p class="mb-0">Sign in to continue to Overseas ERP Solution.</p>
+								 {{-- Global Errors --}}
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 								@if(session('message'))
 									<div class="alert alert-success">
 										{{ session('message') }}

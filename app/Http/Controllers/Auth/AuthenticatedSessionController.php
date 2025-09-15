@@ -26,6 +26,23 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        $user = auth()->user();
+
+        // Employee inactive check
+        $employee = \App\Models\Admin\HRM\Employee::where('personal_email', $user->email)->first();
+        if ($employee && $employee->status != 1) {
+            auth()->logout();
+            return back()->withErrors([
+                'email' => 'Your employee record is inactive. Please contact admin.',
+            ]);
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('dashboard', absolute: false));
+    
+
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard', absolute: false));

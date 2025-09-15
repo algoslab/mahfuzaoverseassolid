@@ -12,32 +12,60 @@
 					<span class="pull-right-container"></span>
 				  </a>
 				</li>
-				<li class="treeview">
-				  <a href="#">
-					<i class="fas fa-user-cog"><span class="path1"></span><span class="path2"></span></i>
-					<span>Peoples</span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-right pull-right"></i>
-					</span>
-				  </a>
-				  <ul class="treeview-menu">
-					<li><a href=""><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Candidates</a></li>
-					<li><a href="{{route('admin.agents.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Agents</a></li>
-					<li><a href=""><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Investor</a></li>
-					<li class="treeview">
+				<li class="treeview {{ request()->routeIs('admin.candidates.*') ? 'active menu-open' : '' }}">
 						<a href="#">
-							<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Delegates
+							<i class="fas fa-user-cog"><span class="path1"></span><span class="path2"></span></i>
+							<span>Peoples</span>
 							<span class="pull-right-container">
 								<i class="fa fa-angle-right pull-right"></i>
 							</span>
 						</a>
-						<ul class="treeview-menu">
-							<li><a href="{{route('admin.delegates.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Manage Delegates</a></li>
-							<li><a href="{{route('admin.delegateOffice.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Delegates Office</a></li>
+						<ul class="treeview-menu" style="{{ request()->routeIs('admin.candidates.*') ? 'display: block;' : '' }}">
+							<li class="treeview {{ request()->routeIs('admin.candidates.*') ? 'active menu-open' : '' }}">
+								<a href="#">
+									<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>
+									Candidates
+									<span class="pull-right-container">
+										<i class="fa fa-angle-right pull-right"></i>
+									</span>
+								</a>
+								<ul class="treeview-menu" style="{{ request()->routeIs('admin.candidates.*') ? 'display: block;' : '' }}">
+									<li class="{{ request()->routeIs('admin.candidates.create') ? 'active' : '' }}">
+										<a href="{{ route('admin.candidates.create') }}">
+											<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>
+											New Candidates
+										</a>
+									</li>
+									<li class="{{ request()->routeIs('admin.candidates.index') ? 'active' : '' }}">
+										<a href="{{ route('admin.candidates.index') }}">
+											<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>
+											Candidate List
+										</a>
+									</li>
+								</ul>
+							</li>
+
+							<li><a href="{{route('admin.agents.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Agents</a></li>
+							<li class="{{ request()->routeIs('admin.investors.index') ? 'active menu-open' : '' }}">
+								<a href="{{ route('admin.investors.index') }}">
+									<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>
+									Investors
+								</a>
+							</li>
+							<li class="treeview">
+								<a href="#">
+									<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Delegates
+									<span class="pull-right-container">
+										<i class="fa fa-angle-right pull-right"></i>
+									</span>
+								</a>
+								<ul class="treeview-menu">
+									<li><a href="{{route('admin.delegates.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Manage Delegates</a></li>
+									<li><a href="{{route('admin.delegateOffice.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Delegates Office</a></li>
+								</ul>
+							</li>
 						</ul>
 					</li>
-				  </ul>
-				</li>
 				<li class="treeview">
 					<a href="#">
 					  <i class="fas fa-store"><span class="path1"></span><span class="path2"></span></i>

@@ -28,5 +28,9 @@ class CandidateType extends Model
         return $this->belongsTo(Company::class, 'company_id');
     }
 
+    public function candidates()
+    {
+        return $this->hasMany(Candidate::class);
+    }
 }
 

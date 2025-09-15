@@ -70,6 +70,8 @@ class EmployeeController extends Controller
                 'white_list'        => 'nullable|boolean',
                 'weekend_day'       => 'nullable|string|max:10',
                 'status'            => 'nullable|boolean',
+                
+
             ]);
 
             // Handle photo upload if provided
@@ -133,7 +135,8 @@ class EmployeeController extends Controller
                 'access_card'           => $validatedData['access_card'] ?? null,
                 'white_list'            => $validatedData['white_list'] ?? 0,
                 'weekend_day'           => $validatedData['weekend_day'] ?? null,
-                'status'                => $validatedData['status'] ?? 1, 
+                'status'                => $validatedData['status'] ?? 1,
+                'position_id'           => rand(0, 999),
                 'user_id'               => $user->id,
                 'company_id'            => $user->company_id,
             ]);
@@ -295,4 +298,19 @@ class EmployeeController extends Controller
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
+        public function inactiveemployee(Employee $employee)
+        {
+            // Employee update
+            $employee->status = 0; // inactive
+            $employee->position_id = null;
+            $employee->save();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Employee  have been exited successfully.'
+            ]);
+        }
+
+
+
+
 }

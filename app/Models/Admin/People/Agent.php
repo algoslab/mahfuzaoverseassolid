@@ -11,9 +11,12 @@ use App\Models\Supper_Admin\Location\Division;
 use App\Models\Supper_Admin\Location\Thana;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Process\Candidate;
 
 class Agent extends Model
 {
+    protected $appends = ['agent_photo_url'];
+
     protected $fillable =
     [
         'company_id',
@@ -77,5 +80,24 @@ class Agent extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'employee_id');
+    }
+
+    public function candidates()
+    {
+        return $this->hasMany(Candidate::class, 'referral_agent_id');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function getAgentPhotoUrlAttribute()
+    {
+        if ($this->agent_photo) {
+            return asset('uploads/agents/' . $this->agent_photo);
+        }
+
+        return asset('backend/images/avatar/placeholder-avatar.jpg');
     }
 }

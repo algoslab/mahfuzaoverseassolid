@@ -56,6 +56,7 @@ class Employee extends Model
         'weekend_day',
         'status',
         'user_id',
+        'position_id',
     ];
 
     public function user()

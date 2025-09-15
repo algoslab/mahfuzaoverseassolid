@@ -8,6 +8,19 @@
             word-wrap: break-word !important;
             word-break: break-word !important;
         }
+            /* Scrollable dropdown */
+        .dropdown-menu.dropdown-scrollable {
+            max-height: 200px; /* adjust height */
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Always appear on top */
+        .dropdown-menu {
+            z-index: 1050 !important; /* higher than modals if needed */
+        }
+
+
     </style>
 @endsection
 
@@ -78,37 +91,34 @@
                 <tbody>
                     @foreach($employees as $key =>$data)
                     <tr>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-bars"></i> Action
-                                </button>
-                                <div class="dropdown-menu">
-                                    <!-- Edit Button inside Dropdown -->
-                                    <a href="#" class="dropdown-item editEmpButton" data-toggle="modal" data-target="#modal-center" data-id="{{ $data->id }}">
-                                        <i class="fa fa-edit"></i> Edit
-                                    </a>
-
-                                    <a href="#" class="dropdown-item editFingerButton" data-toggle="modal" data-target="#modal-finger" data-id="{{ $data->id }}">
-                                        <i class="fa-solid fa-fingerprint"></i> Finger
-                                    </a>
-
-                                    <a href="#" class="dropdown-item editCardButton" data-toggle="modal" data-target="#modal-card" data-id="{{ $data->id }}">
-                                        <i class="fa-solid fa-id-card"></i> Access Card
-                                    </a>
-                                    
-                                    <a href="#" class="dropdown-item text-danger deleteemployeeBtn" data-id="{{ $data->id }}">
-                                        <i class="fa fa-trash"></i> Delete
-                                    </a>
-                                    <!-- Delete Form inside Dropdown -->
-                                    {{-- <button type="button"
-                                            class="dropdown-item text-danger deleteemployeeBtn"
-                                            data-id="{{ $data->id }}">
-                                        <i class="fa fa-trash"></i> Delete
-                                    </button> --}}
-                                </div>
+                       <td>
+                            <div class="btn-group position-static">
+                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bars"></i> Action
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-scrollable">
+                                <a href="#" class="dropdown-item editEmpButton" data-toggle="modal" data-target="#modal-center" data-id="{{ $data->id }}">
+                                    <i class="fa fa-edit"></i> Edit
+                                </a>
+                                <a href="#" class="dropdown-item editFingerButton" data-toggle="modal" data-target="#modal-finger" data-id="{{ $data->id }}">
+                                    <i class="fa-solid fa-fingerprint"></i> Finger
+                                </a>
+                                <a href="#" class="dropdown-item editCardButton" data-toggle="modal" data-target="#modal-card" data-id="{{ $data->id }}">
+                                    <i class="fa-solid fa-id-card"></i> Access Card
+                                </a>
+                                <a href="#" class="dropdown-item exiitCardButton" data-toggle="modal" data-target="#modal-exit" data-id="{{ $data->id }}">
+                                    <i class="fa-solid fa-id-card"></i> Exit
+                                </a>
+                                <a href="#" class="dropdown-item text-danger deleteemployeeBtn" data-id="{{ $data->id }}">
+                                    <i class="fa fa-trash"></i> Delete
+                                </a>
                             </div>
-                        </td>
+                        </div>
+
+                                    </div>
+                                </td>
+
+
                         
                         <td>{{ $key + 1 }}</td>
                         <td class="wrap-text">{{ $data->employee_code }}</td>
@@ -623,6 +633,7 @@
                             $('#current_cardnumber').val(response.access_card);
                             $('#modalTitle').text('Edit Access Card');
                             $('#modal-card').modal('show');
+                            $('#modal-exit').modal('show');
                         },
                         error: function () {
                             Swal.fire('Error!', 'Failed to fetch employee data.', 'error');
@@ -648,6 +659,7 @@
                         },
                         success: function (response) {
                             $('#modal-card').modal('hide'); 
+                            $('#modal-exit').modal('hide'); 
                             Swal.fire('Success!', response.message, 'success'); 
                         },
                         error: function (xhr) {
@@ -704,6 +716,41 @@
                         }
                     });
                 });
+                $(document).on('click', '.exiitCardButton', function () {
+                    const id = $(this).data('id');
+                    const url = '{{ route("admin.employees.inactive", ":id") }}'.replace(':id', id);
+
+                    Swal.fire({
+                        title: 'Exit employee?',
+                        text: "This action cannot be undone.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, Exit'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                data: {
+                                    _token: '{{ csrf_token() }}',
+                                    _method: 'POST' // or 'DELETE' if your route is expecting DELETE
+                                },
+                                success: function (res) {
+                                    if (res.status === 'success') {
+                                        Swal.fire('Success!', res.message, 'success');
+                                        fetchemployee(); // refresh employee table
+                                    } else {
+                                        Swal.fire('Error!', res.message, 'error');
+                                    }
+                                },
+                                error: function () {
+                                    Swal.fire('Error!', 'Failed to perform action.', 'error');
+                                }
+                            });
+                        }
+                    });
+                });
+
             });
         </script>
     @endsection
