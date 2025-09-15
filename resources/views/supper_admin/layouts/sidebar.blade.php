@@ -85,47 +85,7 @@
 						<li><a href="{{ route('supper_admin.currencies.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Currency</a></li>
 					</ul>
 				</li>
-					<li class="treeview">
-					<a href="#">
-					  <i class="fas fa-store"><span class="path1"></span><span class="path2"></span></i>
-					  <span>Enquiry</span>
-					  <span class="pull-right-container">
-						<i class="fa fa-angle-right pull-right"></i>
-					  </span>
-					</a>
-					<ul class="treeview-menu">
-						{{-- <li class="treeview {{ request()->routeIs('admin.phone-calls.*') ? 'active menu-open' : '' }}">
-							<a href="#">
-								<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>
-								Phone Calls
-								<span class="pull-right-container">
-									<i class="fa fa-angle-right pull-right"></i>
-								</span>
-							</a>
-							<ul class="treeview-menu" style="{{ request()->routeIs('admin.candidates.*') ? 'display: block;' : '' }}">
-
-							</ul>
-						</li> --}}
-						<li class="{{ request()->routeIs('admin.phone-calls.index') ? 'active menu-open' : '' }}">
-							<a href="{{ route('admin.phone-calls.index') }}">
-								<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>
-								Phone Calls
-							</a>
-						</li>
-						<li class="{{ request()->routeIs('admin.visitor-books.index') ? 'active menu-open' : '' }}">
-							<a href="{{ route('admin.visitor-books.index') }}">
-								<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>
-								Visitor Book
-							</a>
-						</li>
-						<li class="{{ request()->routeIs('admin.interviewed-candidates.index') ? 'active menu-open' : '' }}">
-							<a href="{{ route('admin.interviewed-candidates.index') }}">
-								<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>
-								Inv: Candidates
-							</a>
-						</li>
-					</ul>
-				</li>
+					
 
 				
 
