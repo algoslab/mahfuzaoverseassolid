@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('air_tickets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('air_ticket_file_id');
+            $table->foreignId('air_ticket_file_id')->constrained('air_ticket_files')->onDelete('cascade');
             $table->string('destination_from');
             $table->string('destination_to');
             $table->date('flight_date');
@@ -27,9 +27,6 @@ return new class extends Migration
             $table->string('airlines');
             $table->string('status')->default('0');
             $table->timestamps();
-
-            $table->foreignId('air_ticket_file_id')->constrained('air_ticket_files')->onDelete('cascade');
-
         });
     }
 
