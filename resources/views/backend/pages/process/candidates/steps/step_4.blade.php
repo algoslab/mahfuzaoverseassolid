@@ -1,3 +1,4 @@
+<input type="hidden" id="candidate_type_id_hidden" value="{{ session('form.step_1.candidate_type_id') }}">
 <div class="row form-group col-md-3">
     <label for="passport_type" class="font-weight-bold text-dark" style="font-size: 14px;">Passport Type</label>
     <select id="passport_type" name="passport_type" class="form-control select2">
@@ -52,9 +53,53 @@
         <label for="passport_scan_copy" class="font-weight-bold text-dark" style="font-size: 14px;">Passport Scan Copy</label>
         <input type="file" id="passport_scan_copy" name="passport_scan_copy" class="form-control">
     </div>
+    <div class="form-group col-md-3">
+        <label for="nfc_tag" class="font-weight-bold text-dark" style="font-size: 14px;">NFC Tag</label>
+        <input type="text" id="nfc_tag" name="nfc_tag" class="form-control">
+    </div>
 
     <div class="form-group col-md-12">
         <label for="note" class="font-weight-bold text-dark" style="font-size: 14px;">Note</label>
         <textarea id="note" name="note" class="form-control" placeholder="Note" rows="2">{{ session('form.step_4.note') }}</textarea>
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+$(document).ready(function() {
+    function updateStep4Fields(candidateTypeId) {
+        if (!candidateTypeId) return;
+
+        $.ajax({
+            url: '/admin/fields-status/' + candidateTypeId,
+            type: 'GET',
+            success: function(fields) {
+                console.log('Step 4 fields from server:', fields);
+
+                // Only loop through step 4 container
+                $('#step4_container').find('input, select, textarea').each(function() {
+                    let id = $(this).attr('id');
+                    if(fields.hasOwnProperty(id)) {
+                        $(this).prop('disabled', fields[id] == 0);
+
+                        // Refresh select2 UI if needed
+                        if($(this).hasClass('select2-hidden-accessible')) {
+                            $(this).trigger('change.select2');
+                        }
+                    }
+                });
+            },
+            error: function() {
+                console.log('Unable to fetch Step 4 fields status');
+            }
+        });
+    }
+
+    // Get candidate_type_id from hidden input
+    let candidateTypeId = $('#candidate_type_id_hidden').val();
+    if(candidateTypeId) {
+        updateStep4Fields(candidateTypeId);
+    }
+});
+</script>

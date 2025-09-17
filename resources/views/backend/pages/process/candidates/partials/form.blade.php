@@ -1,7 +1,7 @@
 @php
 $steps = [
     1 => 'New Candidate',
-    2 => 'Personal Insssssformation',
+    2 => 'Personal Information',
     3 => 'Experience Information',
     4 => 'Passport Information',
     5 => 'Location',

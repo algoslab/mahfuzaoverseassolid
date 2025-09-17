@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\People\AgentController;
 use App\Http\Controllers\Admin\People\DelegateController;
 use App\Http\Controllers\Admin\People\DelegateOfficeController;
 use App\Http\Controllers\Admin\Process\CandidateTypeController;
+ use App\Http\Controllers\Admin\Process\CandidateTypeFieldController;
 use App\Http\Controllers\Admin\Process\ProcessCategoryController;
 use App\Http\Controllers\Admin\Process\JobCategoryController;
 use App\Http\Controllers\Admin\Process\JobListController;
@@ -187,6 +188,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('delegates', DelegateController::class);
     Route::resource('delegateOffice', DelegateOfficeController::class);
     Route::resource('candidateTypes', CandidateTypeController::class);
+
+    //candidate Manage Form
+    Route::get('candidateTypes/manageForm/{id}', [CandidateTypeController::class, 'manageForm'])->name('candidateTypes.manageForm');
+    Route::post('candidateTypes/toggleField', [CandidateTypeFieldController::class, 'toggleField'])
+    ->name('candidateTypes.toggleField');
+    Route::get('fields-status/{candidate_type_id}', [CandidateController::class, 'getFieldsStatus']);
+
     Route::resource('processCategory', ProcessCategoryController::class);
     Route::resource('jobCategory', JobCategoryController::class);
     Route::resource('jobLists', JobListController::class);

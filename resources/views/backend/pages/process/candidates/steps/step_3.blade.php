@@ -1,3 +1,4 @@
+<input type="hidden" id="candidate_type_id_hidden" value="{{ session('form.step_1.candidate_type_id') }}">
 <div class="row form-group col-md-3">
     <label for="experience_type" class="font-weight-bold text-dark" style="font-size: 14px;">Experience Type</label>
     <select id="experience_type" name="experience_type" class="form-control select2">
@@ -85,4 +86,42 @@
             toggleExperienceFields();
         });
     });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+$(document).ready(function() {
+
+    function updateFields(candidateTypeId) {
+        if (!candidateTypeId) return;
+
+        $.ajax({
+            url: '/admin/fields-status/' + candidateTypeId,
+            type: 'GET',
+            success: function(fields) {
+                console.log('Fields from server:', fields);
+
+                // Loop through all inputs/selects in this step dynamically
+                $('input, select, textarea').each(function() {
+                    let id = $(this).attr('id');
+                    if(fields.hasOwnProperty(id)) {
+                        $(this).prop('disabled', fields[id] == 0);
+                        if($(this).hasClass('select2-hidden-accessible')) {
+                            $(this).trigger('change.select2');
+                        }
+                    }
+                });
+            },
+            error: function() {
+                console.log('Unable to fetch fields status');
+            }
+        });
+    }
+
+    // Step 3: Get candidate_type_id from hidden input
+    let candidateTypeId = $('#candidate_type_id_hidden').val();
+    if(candidateTypeId) {
+        updateFields(candidateTypeId);
+    }
+});
 </script>

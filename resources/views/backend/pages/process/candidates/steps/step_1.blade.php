@@ -61,3 +61,58 @@
         <div id="agent_info"></div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+$(document).ready(function() {
+    function updateFields(candidateTypeId) {
+        if(candidateTypeId) {
+            $.ajax({
+                url: '/admin/fields-status/' + candidateTypeId,
+                type: 'GET',
+                success: function(fields) {
+                    console.log(fields); // debug
+
+                    for (const [fieldId, isEnabled] of Object.entries(fields)) {
+                        let input = $('#' + fieldId);
+                        if (input.length) {
+                            // enable/disable
+                            input.prop('disabled', isEnabled == 0);
+
+                            // if select2, trigger UI update
+                            if(input.hasClass('select2-hidden-accessible')) {
+                                input.trigger('change.select2');
+                            }
+                        } else {
+                            console.log('Field not found:', fieldId);
+                        }
+                    }
+                },
+                error: function() {
+                    console.log('Unable to fetch fields status');
+                }
+            });
+        }
+    }
+
+    // When candidate type changes
+    $('#candidate_type_id').on('change', function() {
+        let candidateTypeId = $(this).val();
+        updateFields(candidateTypeId);
+    });
+
+    // Trigger on page load if a candidate type is already selected
+    let preSelected = $('#candidate_type_id').val();
+    if(preSelected) {
+        updateFields(preSelected);
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+

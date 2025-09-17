@@ -32,5 +32,9 @@ class CandidateType extends Model
     {
         return $this->hasMany(Candidate::class);
     }
+     public function fields()
+    {
+        return $this->hasMany(CandidateTypeField::class, 'candidate_type_id', 'id');
+    }
 }
 

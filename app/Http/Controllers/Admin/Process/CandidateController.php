@@ -35,6 +35,8 @@ use App\Http\Requests\CandidateExperienceRequest;
 use App\Models\Admin\Process\CandidateExperience;
 use App\Http\Requests\CandidatePersonalInfoRequest;
 use App\Models\Admin\Process\CandidatePersonalInfo;
+use App\Models\Admin\Process\CandidateTypeField;
+
 
 class CandidateController extends Controller
 {
@@ -63,8 +65,8 @@ class CandidateController extends Controller
                             <a class="dropdown-item" href="#">Print Dynamic Form</a>
                             <a href="#" class="dropdown-item deleteBonusBtn" data-id="'.$row->id.'">Delete</a>
                             <a class="dropdown-item" href="'.($row->files?->candidate_photo ? asset($row->files->candidate_photo) : '#').'" target="_blank">
-    Candidate Photo
-</a>
+                                Candidate Photo
+                            </a>
 
                             <a href="#" class="dropdown-item text-success candidate-comments-btn" data-toggle="modal" data-target="#candidateCommentsModal" data-id="'.$row->id.'">Comments</a>
                         </div>
@@ -462,6 +464,19 @@ class CandidateController extends Controller
             'photo_url' => asset($candidateFile->candidate_photo),
         ]);
     }
+
+ public function getFieldsStatus($candidate_type_id)
+{
+    $fields = \Illuminate\Support\Facades\DB::table('candidate_type_fields')
+        ->where('candidate_type_id', $candidate_type_id)
+        ->pluck('is_enable', 'attr_value');
+     //dd($fields);
+    return response()->json($fields);
+}
+
+
+
+
 
     public function typeTransfer(Request $request)
     {

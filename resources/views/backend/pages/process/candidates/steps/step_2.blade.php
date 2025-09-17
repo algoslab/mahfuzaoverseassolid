@@ -3,6 +3,8 @@
         <label for="first_name" class="font-weight-bold text-dark" style="font-size: 14px;">First Name</label>
         <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" value="{{ session('form.step_2.first_name') }}">
     </div>
+    <input type="hidden" id="candidate_type_id_hidden" value="{{ session('form.step_1.candidate_type_id') }}">
+
 
     <div class="form-group col-md-3">
         <label for="last_name" class="font-weight-bold text-dark" style="font-size: 14px;">Last Name</label>
@@ -123,3 +125,44 @@
         <textarea id="note" name="note" class="form-control" placeholder="Note" rows="2">{{ session('form.step_2.note') }}</textarea>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+$(document).ready(function() {
+
+    function updateFields(candidateTypeId) {
+        if (!candidateTypeId) return;
+
+        $.ajax({
+            url: '/admin/fields-status/' + candidateTypeId,
+            type: 'GET',
+            success: function(fields) {
+                console.log('Fields from server:', fields);
+
+                // Loop through all fields in your step 2 form
+                $('#first_name, #last_name, #gender_id, #date_of_birth, #email, #phone_number, #contact_person_number, #nid_or_birth_certificate, #father_name, #mother_name, #marital_status, #spouse_name, #nominee_name, #relation_with_nominee_id, #religion_id, #blood_group_id, #note').each(function() {
+                    let id = $(this).attr('id');
+
+                    // Check if the server has this field
+                    if(fields.hasOwnProperty(id)) {
+                        $(this).prop('disabled', fields[id] == 0);
+
+                        // If select2, update UI
+                        if($(this).hasClass('select2-hidden-accessible')) {
+                            $(this).trigger('change.select2');
+                        }
+                    }
+                });
+            },
+            error: function() {
+                console.log('Unable to fetch fields status');
+            }
+        });
+    }
+
+    // Get candidate type from hidden input
+    let candidateTypeId = $('#candidate_type_id_hidden').val();
+    if(candidateTypeId) {
+        updateFields(candidateTypeId);
+    }
+});
+</script>

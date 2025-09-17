@@ -7,6 +7,7 @@ use App\Models\Admin\Process\CandidateType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Models\Admin\Process\CandidateTypeField;
 
 class CandidateTypeController extends Controller
 {
@@ -104,4 +105,17 @@ class CandidateTypeController extends Controller
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
+
+   public function manageForm($id)
+    {
+        $candidateType = CandidateType::findOrFail($id);
+        $savedFields = CandidateTypeField::where('candidate_type_id', $id)
+                                          ->pluck('is_enable', 'attr_value')
+                                          ->toArray();
+      
+        $html = view('backend.components.process.manage_form_partial', compact('candidateType', 'savedFields'))->render();
+        return response()->json(['html' => $html]);
+
+    }
+
 }
