@@ -141,7 +141,7 @@ Route::middleware(['auth', 'verified'])->prefix('supper_admin')->name('supper_ad
     Route::post('air-ticket-csv', [AirTicketcontroller::class, 'importCSV'])->name('air-ticket.import');
     Route::get('air-ticket-csv-download', [AirTicketcontroller::class, 'downloadTemplate'])->name('air-ticket.download-template');
     
-    Route::get('/countries/active', [CountryController::class, 'Activeindex'])->name('country.active');
+   // Route::get('/countries/active', [CountryController::class, 'Activeindex'])->name('country.active');
     Route::get('/currency/active', [CurrencyController::class, 'Activeindex'])->name('currency.active');
 
     

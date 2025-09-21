@@ -25,7 +25,7 @@ class JobCategoryController extends Controller
     //     $JobCategorys = JobCategory::where('company_id', $user->company_id)->where('status', 1)->get();
     //     return response()->json($JobCategorys);
     // }
-
+   /*
     public function Activeindex(Request $request)
     {
         $user = Auth::user();
@@ -40,6 +40,23 @@ class JobCategoryController extends Controller
         $jobCategories = $query->get();
         return response()->json($jobCategories);
     }
+    */
+    public function Activeindex(Request $request)
+        {
+            $user = Auth::user();
+            $processCategoryId = $request->input('process_category_id');
+
+            $query = JobCategory::where('company_id', $user->company_id)->where('status', 1);
+
+            if ($processCategoryId) {
+                $query->where('process_category_id', $processCategoryId);
+            }
+
+            $jobCategories = $query->get();
+            return response()->json($jobCategories);
+        }
+
+    
 
 
     public function create()
