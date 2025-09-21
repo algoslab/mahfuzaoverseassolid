@@ -1,4 +1,5 @@
 <input type="hidden" id="candidate_type_id_hidden" value="{{ session('form.step_1.candidate_type_id') }}">
+<div id="step4_container">
 <div class="row form-group col-md-3">
     <label for="passport_type" class="font-weight-bold text-dark" style="font-size: 14px;">Passport Type</label>
     <select id="passport_type" name="passport_type" class="form-control select2">
@@ -63,11 +64,12 @@
         <textarea id="note" name="note" class="form-control" placeholder="Note" rows="2">{{ session('form.step_4.note') }}</textarea>
     </div>
 </div>
-
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 $(document).ready(function() {
+
     function updateStep4Fields(candidateTypeId) {
         if (!candidateTypeId) return;
 
@@ -77,7 +79,6 @@ $(document).ready(function() {
             success: function(fields) {
                 console.log('Step 4 fields from server:', fields);
 
-                // Only loop through step 4 container
                 $('#step4_container').find('input, select, textarea').each(function() {
                     let id = $(this).attr('id');
                     if(fields.hasOwnProperty(id)) {
@@ -96,10 +97,19 @@ $(document).ready(function() {
         });
     }
 
-    // Get candidate_type_id from hidden input
+    // Initial load (if hidden input already has value)
     let candidateTypeId = $('#candidate_type_id_hidden').val();
     if(candidateTypeId) {
         updateStep4Fields(candidateTypeId);
     }
+
+    // Listen to sidebar select change
+    $('#candidate_type_id').on('change', function() {
+        let newCandidateTypeId = $(this).val();
+        // Update hidden input as well
+        $('#candidate_type_id_hidden').val(newCandidateTypeId);
+        updateStep4Fields(newCandidateTypeId);
+    });
+
 });
 </script>

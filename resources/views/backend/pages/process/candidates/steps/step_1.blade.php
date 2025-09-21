@@ -1,6 +1,6 @@
 <div class="row form-group col-md-3">
     <label for="candidate_type_id" class="font-weight-bold text-dark" style="font-size: 14px;">Candidate Type</label>
-    <select id="candidate_type_id" name="candidate_type_id" class="form-control select2">
+    <select id="candidate_type_id" class="form-control select2" disabled>
         <option value="">--Select One--</option>
         @foreach($candidateTypes as $id => $name)
             <option value="{{ $id }}" 
@@ -9,7 +9,11 @@
             </option>
         @endforeach
     </select>
+
+    <!-- Hidden input for validation -->
+    <input type="hidden" name="candidate_type_id" id="candidate_type_id_hidden" value="{{ session('form.step_1.candidate_type_id') }}">
 </div>
+
 
 <div class="row">
     <div class="form-group col-md-3">
@@ -70,20 +74,14 @@ $(document).ready(function() {
                 url: '/admin/fields-status/' + candidateTypeId,
                 type: 'GET',
                 success: function(fields) {
-                    console.log(fields); // debug
-
                     for (const [fieldId, isEnabled] of Object.entries(fields)) {
                         let input = $('#' + fieldId);
                         if (input.length) {
-                            // enable/disable
                             input.prop('disabled', isEnabled == 0);
-
-                            // if select2, trigger UI update
                             if(input.hasClass('select2-hidden-accessible')) {
                                 input.trigger('change.select2');
                             }
-                        } else {
-                            console.log('Field not found:', fieldId);
+                            if(isEnabled == 0) input.val(null).trigger('change');
                         }
                     }
                 },
@@ -94,18 +92,28 @@ $(document).ready(function() {
         }
     }
 
-    // When candidate type changes
+    // Pre-selected candidate type on page load
+    let preSelected = $('#candidate_type_id').val();
+    let $hiddenInput = $('#candidate_type_id_hidden');
+    if(preSelected){
+        // disable the dropdown
+        $('#candidate_type_id').prop('disabled', true);
+        // set hidden input for validation
+        $hiddenInput.val(preSelected);
+        // update fields
+        updateFields(preSelected);
+    }
+
+    // When candidate type changes via dropdown (optional)
     $('#candidate_type_id').on('change', function() {
         let candidateTypeId = $(this).val();
         updateFields(candidateTypeId);
+        $hiddenInput.val(candidateTypeId);
     });
-
-    // Trigger on page load if a candidate type is already selected
-    let preSelected = $('#candidate_type_id').val();
-    if(preSelected) {
-        updateFields(preSelected);
-    }
 });
+
+
+
 </script>
 
 
